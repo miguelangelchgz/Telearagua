@@ -2,6 +2,7 @@ package ve.gob.tla.telearagua.telearagua;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
@@ -11,7 +12,6 @@ import org.jsoup.select.Elements;
 
 public class WebConection {
     public static final String url = "http://tla.gob.ve/";
-    public static final int maxPages = 20;
 
 
     public static void main(String args[]) {
@@ -27,33 +27,48 @@ public class WebConection {
             Document document = getHtmlDocument(urlPage);
 
             // Busco todas las historias de meneame que estan dentro de:
-            Elements entradas = document.getElementsByTag("figure");
-            System.out.println(entradas.size());
 
 
-            // Paseo cada una de las entradas
-            for (Element elem : entradas) {
-
-                Boolean hasTitle = elem.getElementsByClass("img-responsive").hasAttr("title");
-
-
-                if (hasTitle) {
-                    String title = elem.getElementsByClass("img-responsive").attr("title");
-                    String img_link = "http://tla.gob.ve/" + elem.getElementsByClass("img-responsive").attr("src");
-                    String notice_link = "http://tla.gob.ve/noticias_nacionales.php?data=" + img_link.replace("archivos/", "");
-
-                    System.out.println(title);
-                    System.out.println(img_link);
-                    System.out.println(notice_link);
-                }
-
-            }
+            getNoticePosts(document);
 
         } else {
             System.out.println("El Status Code no es OK es: " + getStatusConnectionCode(urlPage));
         }
 
     }
+
+    private static void getNoticePosts(Document document) {
+        Elements entradas = document.getElementsByTag("figure");
+        System.out.println(entradas.size());
+        ArrayList<Post> Posts = new ArrayList<Post>();
+        for (Element elem : entradas) {
+
+            Boolean hasTitle = elem.getElementsByClass("img-responsive").hasAttr("title");
+
+
+            if (hasTitle) {
+                String title = elem.getElementsByClass("img-responsive").attr("title");
+                String img_link = "http://tla.gob.ve/" + elem.getElementsByClass("img-responsive").attr("src");
+                String notice_link = "http://tla.gob.ve/noticias_nacionales.php?data=" + img_link.replace("http://tla.gob.ve/archivos/", "");
+
+                Post new_post = new Post(title, img_link, notice_link, "");
+                entradas = document.getElementsByTag("modal-body");
+                getDescription(entradas);
+
+                System.out.println(title);
+                System.out.println(img_link);
+                System.out.println(notice_link);
+            }
+
+        }
+    }
+
+    private static String getDescription(Elements entradas){
+        System.out.println(entradas.size());
+        return "Hola";
+    }
+
+
 
 
     public static int getStatusConnectionCode(String url) {
