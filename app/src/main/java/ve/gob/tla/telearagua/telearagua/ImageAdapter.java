@@ -1,20 +1,14 @@
 package ve.gob.tla.telearagua.telearagua;
 
 import android.content.Context;
-<<<<<<< HEAD
-=======
-import android.graphics.Color;
->>>>>>> 996845e6311579a785615581f90432f1900bbdf0
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
 import android.widget.BaseAdapter;
-=======
->>>>>>> 996845e6311579a785615581f90432f1900bbdf0
 
-public class ImageAdapter {
+
+public class ImageAdapter extends BaseAdapter {
     private Context mContext;
 
     public ImageAdapter(Context c) {
@@ -73,4 +67,4 @@ public class ImageAdapter {
             R.drawable.sample_6, R.drawable.sample_7
     };
 }
-}
+
