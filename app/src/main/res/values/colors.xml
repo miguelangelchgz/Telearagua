@@ -8,7 +8,7 @@
     <color name="secondaryDarkColor">#9a0007</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
-    <color name="jagger">#3c3441</color>
+    <color name="jagger">#73000000</color>
     <color name="topaz">#816F95</color>
     <color name="cesoir">#986CA8</color>
 </resources>
