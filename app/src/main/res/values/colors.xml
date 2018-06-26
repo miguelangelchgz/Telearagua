@@ -9,6 +9,6 @@
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
     <color name="jagger">#73000000</color>
-    <color name="topaz">#816F95</color>
+    <color name="topaz">#f5f5f5</color>
     <color name="cesoir">#986CA8</color>
 </resources>
