@@ -1,18 +1,27 @@
 package ve.gob.tla.telearagua.telearagua;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import java.util.List;
 
 
 public class ImageAdapter extends BaseAdapter {
+    private Activity activity;
+    private List<Post> postsList;
+
+
     private Context mContext;
 
-    public ImageAdapter(Context c) {
+    public ImageAdapter(Context c, List<Post> postsList) {
         mContext = c;
+        this.postsList = postsList;
     }
 
     public int getCount() {
@@ -29,8 +38,7 @@ public class ImageAdapter extends BaseAdapter {
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         CardView cardView;
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
@@ -38,6 +46,8 @@ public class ImageAdapter extends BaseAdapter {
            View gridView = inflater.inflate(R.layout.card, null);
            System.out.println(gridView.getHeight());
             cardView =  (CardView)gridView.findViewById(R.id.card_view);
+            TextView title = (TextView) cardView.findViewById(R.id.textView2);
+            title.setText("prueba");
 
 
 
