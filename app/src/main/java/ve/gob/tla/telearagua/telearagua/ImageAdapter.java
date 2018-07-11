@@ -2,9 +2,6 @@ package ve.gob.tla.telearagua.telearagua;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -13,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import java.util.List;
 
 
@@ -52,16 +47,18 @@ public class ImageAdapter extends BaseAdapter {
 
         if (convertView == null) {
             View gridView = inflater.inflate(R.layout.card, null);
-            convertView = (CardView) gridView.findViewById(R.id.card_view);}
+            convertView = (CardView) gridView.findViewById(R.id.card_view);
+        }
+        TextView title = (TextView) convertView.findViewById(R.id.textView2);
+        final ConstraintLayout layout = (ConstraintLayout) convertView.findViewById(R.id.consts);
+        title.setText(postsList.get(position).title);
+        title.setGravity(80);
 
-            TextView title = (TextView) convertView.findViewById(R.id.textView2);
-            final ConstraintLayout layout = (ConstraintLayout) convertView.findViewById(R.id.consts);
-            String titulo = postsList.get(position).title;
-            title.setText(titulo);
-            title.setGravity(80);
-            String link = postsList.get(position).image_link;
 
-            Picasso.get().load(link).into(new Target() {
+
+        //String link = postsList.get(position).image_link;
+
+            /*Picasso.get().load(link).into(new Target() {
                 @Override
                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                     layout.setBackground(new BitmapDrawable(mContext.getResources(), bitmap));
@@ -77,9 +74,7 @@ public class ImageAdapter extends BaseAdapter {
                 public void onPrepareLoad(Drawable placeHolderDrawable) {
 
                 }
-            });
-
-
+            });*/
 
 
         return convertView;

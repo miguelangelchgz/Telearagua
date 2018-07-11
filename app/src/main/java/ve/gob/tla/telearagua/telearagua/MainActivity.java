@@ -3,7 +3,9 @@ package ve.gob.tla.telearagua.telearagua;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -14,7 +16,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -54,22 +55,11 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                                     @Override
                                     public void run() {
                                         swipeRefreshLayout.setRefreshing(true);
-                                        movieList.clear();
-
                                         fetchMovies();
                                     }
                                 }
         );
 
-
-
-        /*gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-                Toast.makeText(MainActivity.this, "" + position,
-                        Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
 
     }
@@ -78,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     public void onRefresh() {
         movieList.clear();
         fetchMovies();
+
     }
 
     private void fetchMovies() {
@@ -95,31 +86,33 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.d(TAG, response.toString());
+
+                        if(response.length() > 0) {
 
 
-                        for (int i = 0; i < 10; i++) {
+                            for (int i = 9; i >= 0; i--) {
 
-                            JSONObject post = null;
-                            try {
-                                post = response.getJSONArray("data").getJSONObject(i);
-                                String titulo = post.getString("titulo");
-                                String img = post.getString("img");
-                                String contenido = post.getString("contenido");
-                                String fecha = post.getString("fecha");
-                                String categoria = post.getString("categoria");
-                                Post new_post = new Post(titulo, contenido, img, fecha, categoria);
-                                movieList.add(0, new_post);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+
+                                try {
+                                    JSONObject post = response.getJSONArray("data").getJSONObject(i);
+                                    String titulo = post.getString("titulo");
+                                    String img = post.getString("img");
+                                    String contenido = post.getString("contenido");
+                                    String fecha = post.getString("fecha");
+                                    String categoria = post.getString("categoria");
+                                    Post new_post = new Post(titulo, contenido, img, fecha, categoria);
+                                    movieList.add(0, new_post);
+                                } catch (JSONException e) {
+                                    Log.e(TAG, "JSON Parsing error: " + e.getMessage());
+                                }
+
+
                             }
 
 
+                            adapter.notifyDataSetChanged();
                         }
-                        Collections.reverse(movieList);
-                        int contador = movieList.size();
-
-
-                        adapter.notifyDataSetChanged();
 
                         swipeRefreshLayout.setRefreshing(false);
 
@@ -129,7 +122,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
+                        Log.e(TAG, "Server Error: " + error.getMessage());
+
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+
+                        // stopping swipe refresh
+                        swipeRefreshLayout.setRefreshing(false);
 
                     }
                 });
