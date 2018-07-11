@@ -10,10 +10,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -21,13 +22,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private ImageAdapter adapter;
 
-    private String URL_TOP_250 = "https://api.androidhive.info/json/imdb_top_250.php?offset=";
-
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private List<Post> movieList;
 
-    private int offSet = 0;
 
     public static final String TAG = MainActivity.class
             .getSimpleName();
@@ -56,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                                     @Override
                                     public void run() {
                                         swipeRefreshLayout.setRefreshing(true);
+                                        movieList.clear();
 
                                         fetchMovies();
                                     }
@@ -77,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     @Override
     public void onRefresh() {
+        movieList.clear();
         fetchMovies();
     }
 
@@ -86,38 +86,44 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         swipeRefreshLayout.setRefreshing(true);
 
         // appending offset to url
-        String url = "http://tla.gob.ve/api/get/imagenes/";
+        String url = "http://tla.gob.ve/api/get/imagenes/?o=tiempo&s=desc";
 
         // olley's json array request object
         // Volley's json array request object
-        JsonObjectRequest req =  new JsonObjectRequest
+        JsonObjectRequest req = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        //mTextView.setText("Response: " + response.toString());
 
-                        try
-                        {
-                            JSONArray prueba = response.getJSONArray("data");
 
-                            for(int i = 0; i < prueba.length(); i++){
-                              String a = prueba.getJSONObject(i).toString();
-                              String fecha = prueba.getJSONObject(i).getString("fecha");
-                              int contador = prueba.length();
-                              System.out.print(prueba.length());
+                        for (int i = 0; i < 10; i++) {
+
+                            JSONObject post = null;
+                            try {
+                                post = response.getJSONArray("data").getJSONObject(i);
+                                String titulo = post.getString("titulo");
+                                String img = post.getString("img");
+                                String contenido = post.getString("contenido");
+                                String fecha = post.getString("fecha");
+                                String categoria = post.getString("categoria");
+                                Post new_post = new Post(titulo, contenido, img, fecha, categoria);
+                                movieList.add(0, new_post);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
 
 
                         }
-                        catch(Exception var1)
-                        {
-                            //Gestión del error var1, de tipo Tipo1
-                        }
+                        Collections.reverse(movieList);
+                        int contador = movieList.size();
 
 
+                        adapter.notifyDataSetChanged();
 
-                        //movieList.add(new Post(response.toString(),"","","",""));
+                        swipeRefreshLayout.setRefreshing(false);
+
+
                     }
                 }, new Response.ErrorListener() {
 

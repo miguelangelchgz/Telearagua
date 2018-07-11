@@ -2,6 +2,7 @@ package ve.gob.tla.telearagua.telearagua;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import java.util.List;
 public class ImageAdapter extends BaseAdapter {
     private Activity activity;
     private List<Post> postsList;
+    private LayoutInflater inflater;
 
 
     private Context mContext;
@@ -25,56 +27,60 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        return postsList.size();
     }
 
-    public Object getItem(int position) {
-        return null;
+    public Object getItem(int location) {
+        return postsList.get(location);
     }
 
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        CardView cardView;
-        if (convertView == null) {
-            // if it's not recycled, initialize some attributes
-            //cardView = new CardView(mContext);
-           View gridView = inflater.inflate(R.layout.card, null);
-           System.out.println(gridView.getHeight());
-            cardView =  (CardView)gridView.findViewById(R.id.card_view);
-            TextView title = (TextView) cardView.findViewById(R.id.textView2);
-            title.setText("prueba");
-
-
-
-            //cardView.setCardBackgroundColor(Color.WHITE);
-
-            //cardView.setLayoutParams(new ViewGroup.LayoutParams(320,320));
-            //cardView.setPadding(8,8,8,8);
-        } else {
-            cardView = (CardView) convertView;
+        if (inflater == null) {
+            inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
-        return cardView;
+
+        if (convertView == null) {
+            View gridView = inflater.inflate(R.layout.card, null);
+            convertView = (CardView) gridView.findViewById(R.id.card_view);
+            TextView title = (TextView) convertView.findViewById(R.id.textView2);
+            final ConstraintLayout layout = (ConstraintLayout) convertView.findViewById(R.id.consts);
+            title.setText(postsList.get(position).title);
+            title.setGravity(80);
+            String link = postsList.get(position).image_link;
+
+            /*Picasso.get().load(link).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    layout.setBackground(new BitmapDrawable(mContext.getResources(), bitmap));
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                }
+
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            });*/
+
+
+        } else {
+            convertView = (CardView) convertView;
+        }
+
+        return convertView;
     }
 
     // references to our images
-    private Integer[] mThumbIds = {
-            R.drawable.sample_2, R.drawable.sample_3,
-            R.drawable.sample_4, R.drawable.sample_5,
-            R.drawable.sample_6, R.drawable.sample_7,
-            R.drawable.sample_0, R.drawable.sample_1,
-            R.drawable.sample_2, R.drawable.sample_3,
-            R.drawable.sample_4, R.drawable.sample_5,
-            R.drawable.sample_6, R.drawable.sample_7,
-            R.drawable.sample_0, R.drawable.sample_1,
-            R.drawable.sample_2, R.drawable.sample_3,
-            R.drawable.sample_4, R.drawable.sample_5,
-            R.drawable.sample_6, R.drawable.sample_7
-    };
+
 }
 

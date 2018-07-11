@@ -23,9 +23,9 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/consts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/sample_0"
             android:backgroundTint="@color/jagger"
             android:backgroundTintMode="src_over"
             android:minHeight="250dp">
@@ -33,16 +33,16 @@
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:fontFamily="@font/roboto_condensed_bold"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_vertical_margin"
                 android:paddingTop="@dimen/card_padding_top"
-                android:text="Selección zuliana se impuso 10 por 7 a distrito capital para titularse en la categoría SUB-15"
-                android:textAlignment="viewStart"
+                android:text="prueba"
+                android:textAlignment="inherit"
                 android:textColor="@color/primaryTextColor"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="w,1:1"
