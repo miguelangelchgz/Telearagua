@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -19,7 +21,9 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
@@ -51,6 +55,13 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         adapter = new ImageAdapter(this, movieList);
 
         gridview.setAdapter(adapter);
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                Toast.makeText(MainActivity.this, "" + position,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
@@ -89,13 +100,29 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             public void onResponse(NetworkResponse response) {
                 try {
                     final String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-                    String jsonString2 = jsonString.replace("\\u00c3\\u201c","Ó");
-                    jsonString2 = jsonString.replace("\\u00c3\\u008d","Í");
-                    jsonString2 = jsonString2.replace("\\u00c3\\u0081","Á");
-                    jsonString2 = jsonString2.replace("\\u00c3\\u2030","É");
-                    jsonString2 = jsonString2.replace("\\u00c3\\u2018","Ñ");
+
+                    String jsonString2 = jsonString;
+                    Hashtable<String, String> caracteres = new Hashtable<String, String>();
+                    caracteres.put("\\u00c3\\u008d","Í");
+                    caracteres.put("\\u00c3\\u0081","Á");
+                    caracteres.put("\\u00c3\\u2030","É");
+                    caracteres.put("\\u00c3\\u2018","Ñ");
+                    caracteres.put("\\u00c3\\u00b1","ñ");
+                    caracteres.put("\\u00c3\\u201c","Ó");
+                    caracteres.put("\\u00c3\\u00ad","í");
+                    caracteres.put("\\u00c3\\u00b3","ó");
+                    caracteres.put("\\u00c3\\u00a1","á");
+                    caracteres.put("\\u00c3\\u00a9","é");
+                    caracteres.put("\\u00c3\\u00ba","ú");
+                    for (Map.Entry<String, String> entry : caracteres.entrySet()) {
+                        jsonString2 = jsonString2.replace(entry.getKey(),entry.getValue());
+
+                    }
+
+
                     JSONObject jsonObject = new JSONObject(jsonString2);
-                    Log.d(TAG, jsonString2);
+
+                    Log.d(TAG,jsonString2);
                     if(jsonObject.length() > 0) {
 
 
@@ -105,8 +132,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                             try {
                                 JSONObject post = jsonObject.getJSONArray("data").getJSONObject(i);
                                 String titulo = post.getString("titulo");
-                                /*byte[] bytes = titulo.getBytes("ASCII");
-                               titulo =  new String(bytes, titulo);*/
                                 String img = post.getString("img");
                                 String contenido = post.getString("contenido");
                                 String fecha = post.getString("fecha");
@@ -142,63 +167,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-        //-----------------------------------------------------------0000---------------------------------------------
-
-        /*JsonObjectRequest req = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d(TAG, response.toString());
-
-                        if(response.length() > 0) {
-
-
-                            for (int i = 9; i >= 0; i--) {
-
-
-                                try {
-                                    JSONObject post = response.getJSONArray("data").getJSONObject(i);
-                                    String titulo = post.getString("titulo");
-                                    String img = post.getString("img");
-                                    String contenido = post.getString("contenido");
-                                    String fecha = post.getString("fecha");
-                                    String categoria = post.getString("categoria");
-                                    Post new_post = new Post(titulo, contenido, img, fecha, categoria);
-                                    movieList.add(0, new_post);
-                                } catch (JSONException e) {
-                                    Log.e(TAG, "JSON Parsing error: " + e.getMessage());
-                                }
-
-
-                            }
-
-
-                            adapter.notifyDataSetChanged();
-                        }
-
-                        swipeRefreshLayout.setRefreshing(false);
-
-
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "Server Error: " + error.getMessage());
-
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-
-                        // stopping swipe refresh
-                        swipeRefreshLayout.setRefreshing(false);
-
-                    }
-                }) {
-            @Override
-            public Priority getPriority() {
-                return Priority.HIGH;
-            }
-        };*/
 
         // Adding request to request queue
         MyApplication.getInstance().addToRequestQueue(req);
