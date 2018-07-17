@@ -44,7 +44,7 @@ public class ImageAdapter extends BaseAdapter {
         return position;
     }
 
-    // create a new ImageView for each item referenced by the Adapter
+
     public View getView(int position, View convertView, ViewGroup parent) {
         if (inflater == null) {
             inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -52,38 +52,37 @@ public class ImageAdapter extends BaseAdapter {
 
 
         if (convertView == null) {
-            View gridView = inflater.inflate(R.layout.card, null);
-            convertView = (CardView) gridView.findViewById(R.id.card_view);
+            convertView = inflater.inflate(R.layout.cardd, null);
         }
-        if(position < postsList.size()){
-        TextView title = (TextView) convertView.findViewById(R.id.textView2);
-        final ConstraintLayout layout = (ConstraintLayout) convertView.findViewById(R.id.consts);
-        title.setText(postsList.get(position).title);
-        title.setGravity(80);
-        String link = postsList.get(position).image_link;
-        Picasso.get().load(link).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                layout.setBackground(new BitmapDrawable(mContext.getResources(), bitmap));
-            }
+        if (position < postsList.size()) {
+            TextView title = (TextView) convertView.findViewById(R.id.cardTitle);
+            final ConstraintLayout layout = convertView.findViewById(R.id.constraint);
+            title.setText(postsList.get(position).title);
+            title.setGravity(80);
+            String link = postsList.get(position).image_link;
+            Picasso.get().load(link).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    layout.setBackground(new BitmapDrawable(mContext.getResources(), bitmap));
+                }
 
-            @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
 
-            }
-
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-            }
-            });}
+                }
 
 
-        return convertView;
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            });
+        }
+
+
+        return (CardView) convertView;
     }
 
-    // references to our images
 
 }
 

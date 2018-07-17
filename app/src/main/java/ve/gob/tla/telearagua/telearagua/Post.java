@@ -7,7 +7,6 @@ public class Post {
         this.description = description;
         this.date = date;
         this.category = category;
-
     }
 
     public String description, title, image_link,date,category;

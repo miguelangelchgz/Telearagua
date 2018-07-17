@@ -10,6 +10,13 @@
         <item name="android:textColorSecondary">@color/secondaryTextColor</item>
         <item name="android:navigationBarColor">@color/primaryDarkColor</item>
     </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:scrollbarThumbVertical">@color/blackcurrant</item>
+        <item name="android:scrollbarSize">4dp</item>
+    </style>
 
 
 </resources>
