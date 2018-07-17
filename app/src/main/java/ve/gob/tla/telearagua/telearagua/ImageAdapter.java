@@ -50,10 +50,10 @@ public class ImageAdapter extends BaseAdapter {
             inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
-
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.cardd, null);
         }
+
         if (position < postsList.size()) {
             TextView title = (TextView) convertView.findViewById(R.id.cardTitle);
             final ConstraintLayout layout = convertView.findViewById(R.id.constraint);

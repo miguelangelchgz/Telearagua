@@ -119,8 +119,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                             }
 
                         }
-                        adapter.notifyDataSetChanged();
+
                     }
+                    adapter.notifyDataSetChanged();
                     swipeRefreshLayout.setRefreshing(false);
 
 
