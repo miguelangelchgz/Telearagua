@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         postsList = new ArrayList<>();
 
-        GridView gridview = (GridView) findViewById(R.id.gridview);
+        GridView gridview = (GridView) findViewById(R.id.gridPosts);
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                                     @Override
                                     public void run() {
                                         swipeRefreshLayout.setRefreshing(true);
-                                        fetchMovies();
+                                        fetchPosts();
                                     }
                                 }
         );
@@ -88,10 +88,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @Override
     public void onRefresh() {
         postsList.clear();
-        fetchMovies();
+        fetchPosts();
     }
 
-    private void fetchMovies() {
+    private void fetchPosts() {
         swipeRefreshLayout.setRefreshing(true);
         String url = "http://tla.gob.ve/api/get/imagenes/?o=tiempo&s=desc";
         CacheRequest req = new CacheRequest(0, url, new Response.Listener<NetworkResponse>() {
