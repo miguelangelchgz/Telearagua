@@ -19,12 +19,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <GridView
-            android:id="@+id/gridPosts"
+            android:id="@+id/gridview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:horizontalSpacing="@dimen/gridview_spacing"
-            android:numColumns="@dimen/number_columns"
+            android:numColumns="2"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/gridview_padding"
@@ -38,6 +38,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0">
+
         </GridView>
 
 

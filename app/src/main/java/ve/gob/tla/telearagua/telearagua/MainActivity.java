@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         postsList = new ArrayList<>();
 
-        GridView gridview = (GridView) findViewById(R.id.gridPosts);
+        GridView gridview = (GridView) findViewById(R.id.gridview);
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
