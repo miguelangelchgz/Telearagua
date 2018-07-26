@@ -22,7 +22,7 @@
             android:background="@color/snow"
             android:orientation="vertical">
 
-            <ImageView
+            <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/postImage"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"

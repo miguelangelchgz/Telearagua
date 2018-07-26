@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/card_size"
     android:layout_height="@dimen/card_size"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    app:cardCornerRadius="4dp"
+    >
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraint"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:minHeight="@dimen/card_size">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/cardTitle"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/jagger"
-            android:fontFamily="@font/roboto_condensed_bold"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingStart="@dimen/activity_vertical_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:textAlignment="inherit"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="@dimen/card_text_size"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/product_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shr_product_card_image_height"
+            android:background="?attr/colorPrimaryDark"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/product_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/shr_product_title"
+                android:textAppearance="?attr/textAppearanceHeadline6" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 </android.support.design.card.MaterialCardView>

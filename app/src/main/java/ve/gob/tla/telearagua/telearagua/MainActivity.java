@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends AppCompatActivity { //implements SwipeRefreshLayout.OnRefreshListener {
 
-    private ImageAdapter adapter;
+    //private ImageAdapter adapter;
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -42,11 +42,26 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(myToolbar);
 
         postsList = new ArrayList<>();
+        fetchPosts();
 
-        GridView gridview = (GridView) findViewById(R.id.gridview);
+        // Set up the RecyclerView
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        GridLayoutManager grid = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(grid);
+        ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(this,postsList);
+        recyclerView.setAdapter(adapter);
+        int largePadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing);
+        int smallPadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing_small);
+        recyclerView.addItemDecoration(new ProductGridItemDecoration(largePadding, smallPadding));
+
+
+
+        /*GridView gridview = (GridView) findViewById(R.id.gridview);
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
@@ -74,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                                 }
         );
 
-
+*/
     }
 
     private void launchPostActivity(int position) {
@@ -85,14 +100,16 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         startActivity(launchGame);
     }
 
-    @Override
+
+
+    /*@Override
     public void onRefresh() {
         postsList.clear();
         fetchPosts();
-    }
+    }*/
 
     private void fetchPosts() {
-        swipeRefreshLayout.setRefreshing(true);
+        //swipeRefreshLayout.setRefreshing(true);
         String url = "http://tla.gob.ve/api/get/imagenes/?o=tiempo&s=desc";
         CacheRequest req = new CacheRequest(0, url, new Response.Listener<NetworkResponse>() {
             @Override
@@ -103,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     JSONObject jsonObject = new JSONObject(jsonString);
                     Log.d(TAG, jsonString);
                     if (jsonObject.length() > 0) {
-                        for (int i = 9; i >= 0; i--) {
+                        for (int i = 13; i >= 0; i--) {
 
                             try {
                                 JSONObject post = jsonObject.getJSONArray("data").getJSONObject(i);
@@ -121,8 +138,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                         }
 
                     }
-                    adapter.notifyDataSetChanged();
-                    swipeRefreshLayout.setRefreshing(false);
+                    //adapter.notifyDataSetChanged();
+                   // swipeRefreshLayout.setRefreshing(false);
 
 
                 } catch (UnsupportedEncodingException | JSONException e) {
@@ -133,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                swipeRefreshLayout.setRefreshing(false);
+                //swipeRefreshLayout.setRefreshing(false);
             }
         });
 

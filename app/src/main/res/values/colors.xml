@@ -13,4 +13,12 @@
     <color name="snow">#FAFAFA</color>
     <color name="catskill">#DFE3DB</color>
     <color name="grey_suit">#9896A3</color>
+    <color name="background_material_dark">#ffffff</color>
+    <color name="colorPrimary">#e53835</color>
+    <color name="colorPrimaryDark">#ab000d</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="toolbarIconColor">#FFFFFF</color>
+    <color name="loginPageBackgroundColor">#FFFFFF</color>
+    <color name="productGridBackgroundColor">#FFFFFF</color>
+    <color name="background">#F5F5F5</color>
 </resources>
