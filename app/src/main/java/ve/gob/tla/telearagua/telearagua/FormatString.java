@@ -4,8 +4,10 @@ import java.util.Hashtable;
 import java.util.Map;
 
 public class FormatString {
-    public static String format(String data){
-        Hashtable<String, String> caracteres = new Hashtable<String, String>();
+    private Hashtable<String, String> caracteres = new Hashtable<String, String>();
+
+    private void llenar(){
+        caracteres = new Hashtable<String, String>();
         caracteres.put("\\u00c3\\u008d", "Í");
         caracteres.put("\\u00c3\\u0081", "Á");
         caracteres.put("\\u00c3\\u2030", "É");
@@ -20,6 +22,13 @@ public class FormatString {
         caracteres.put("\\u00c3\\u00bc","ü");
         caracteres.put("\\u00e2\\u20ac\\u0153","“");
         caracteres.put("\\u00e2\\u20ac\\u009d","”");
+    }
+    public  String format(String data){
+        if (caracteres.isEmpty()){
+            llenar();
+        }
+
+
         for (Map.Entry<String, String> entry : caracteres.entrySet()) {
             data = data.replace(entry.getKey(), entry.getValue());
         }

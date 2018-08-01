@@ -17,11 +17,13 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     private Context mContext;
     private List<Post> productList;
     private ImageRequester imageRequester;
+    private  Intent  intent;
 
     ProductCardRecyclerViewAdapter(Context c,List<Post> productList) {
         mContext = c;
         this.productList = productList;
         imageRequester = ImageRequester.getInstance();
+        intent = new Intent(c, PostActivity.class);
     }
 
     @NonNull
@@ -37,17 +39,21 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
             final Post product = productList.get(position);
             holder.productTitle.setText(product.title);
             imageRequester.setImageFromUrl(holder.productImage, product.image_link);
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(mContext, PostActivity.class);
-                    intent.putExtra("title", product.title);
-                    intent.putExtra("description", product.description);
-                    intent.putExtra("link", product.image_link);
-                    mContext.startActivity(intent);
-                }
-            });
+            setOnClick(holder,product);
+
         }
+    }
+    private void setOnClick(ProductCardViewHolder holder,final Post post){
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent.putExtra("title", post.title);
+                intent.putExtra("description", post.description);
+                intent.putExtra("link", post.image_link);
+                mContext.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
