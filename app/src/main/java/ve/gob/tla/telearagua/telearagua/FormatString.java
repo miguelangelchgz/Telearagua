@@ -22,6 +22,7 @@ public class FormatString {
         caracteres.put("\\u00c3\\u00bc","ü");
         caracteres.put("\\u00e2\\u20ac\\u0153","“");
         caracteres.put("\\u00e2\\u20ac\\u009d","”");
+        caracteres.put("\\u00c3\\u0161","Ú");
     }
     public  String format(String data){
         if (caracteres.isEmpty()){
