@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     JSONObject jsonObject = new JSONObject(jsonString);
                     Log.d(TAG, jsonString);
                     if (jsonObject.length() > 0) {
-                        for (int i = 13; i >= 0; i--) {
+                        for (int i = 20; i >= 0; i--) {
 
                             try {
                                 JSONObject post = jsonObject.getJSONArray("data").getJSONObject(i);
