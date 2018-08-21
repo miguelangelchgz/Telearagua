@@ -16,7 +16,7 @@
     <color name="background_material_dark">#ffffff</color>
     <color name="colorPrimary">#e53835</color>
     <color name="colorPrimaryDark">#ab000d</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ffab00</color>
     <color name="toolbarIconColor">#FFFFFF</color>
     <color name="loginPageBackgroundColor">#FFFFFF</color>
     <color name="productGridBackgroundColor">#FFFFFF</color>
