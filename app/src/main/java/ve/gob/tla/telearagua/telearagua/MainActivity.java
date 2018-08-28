@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private FormatString formater;
 
 
-    public static final String TAG = MainActivity.class
+    public static final String TAG = PostActivity.class
             .getSimpleName();
 
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.app_bar);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(myToolbar);
 
         postsList = new ArrayList<>();
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
 
         // Set up the RecyclerView
+        /*
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         GridLayoutManager grid = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         fetchPosts();
     }
 
-    private void fetchPosts() {
+    public void fetchPosts() {
         swipeRefreshLayout.setRefreshing(true);
         String url = "http://tla.gob.ve/api/get/imagenes/?o=tiempo&s=desc";
         CacheRequest req = new CacheRequest(0, url, new Response.Listener<NetworkResponse>() {

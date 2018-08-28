@@ -12,14 +12,14 @@ import java.util.List;
 
 import ve.gob.tla.telearagua.telearagua.network.ImageRequester;
 
-public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<ProductCardViewHolder> {
+public class ShowCardViewHolderAdapter extends RecyclerView.Adapter<ShowCardViewHolder> {
 
     private Context mContext;
     private List<Post> productList;
     private ImageRequester imageRequester;
     private  Intent  intent;
 
-    ProductCardRecyclerViewAdapter(Context c,List<Post> productList) {
+    ShowCardViewHolderAdapter(Context c,List<Post> productList) {
         mContext = c;
         this.productList = productList;
         imageRequester = ImageRequester.getInstance();
@@ -28,23 +28,23 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
     @NonNull
     @Override
-    public ProductCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardd, parent, false);
-        return new ProductCardViewHolder(layoutView);
+    public ShowCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_show, parent, false);
+        return new ShowCardViewHolder(layoutView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ShowCardViewHolder holder, int position) {
         if (productList != null && position < productList.size()) {
             final Post product = productList.get(position);
-            holder.productTitle.setText(product.title);
-            imageRequester.setImageFromUrl(holder.productImage, product.image_link);
+            holder.showTitle.setText(product.title);
+            imageRequester.setImageFromUrl(holder.showImage, product.image_link);
             setOnClick(holder,product);
 
         }
     }
-    private void setOnClick(ProductCardViewHolder holder,final Post post){
-        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
+    private void setOnClick(ShowCardViewHolder holder,final Post post){
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent.putExtra("title", post.title);
@@ -52,7 +52,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
                 intent.putExtra("link", post.image_link);
                 mContext.startActivity(intent);
             }
-        });*/
+        });
 
     }
 
