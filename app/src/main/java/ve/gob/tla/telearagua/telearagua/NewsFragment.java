@@ -167,6 +167,7 @@ public class NewsFragment extends Fragment {
 
         // Adding request to request queue
         MyApplication.getInstance().addToRequestQueue(req);
+
     }
 
 

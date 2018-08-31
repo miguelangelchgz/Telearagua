@@ -44,7 +44,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
         }
     }
     private void setOnClick(ProductCardViewHolder holder,final Post post){
-        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent.putExtra("title", post.title);
@@ -52,7 +52,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
                 intent.putExtra("link", post.image_link);
                 mContext.startActivity(intent);
             }
-        });*/
+        });
 
     }
 
