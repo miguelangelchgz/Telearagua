@@ -24,6 +24,7 @@ public class ShowCardViewHolderAdapter extends RecyclerView.Adapter<ShowCardView
         this.productList = productList;
         imageRequester = ImageRequester.getInstance();
         intent = new Intent(c, PostActivity.class);
+        setHasStableIds(true);
     }
 
     @NonNull

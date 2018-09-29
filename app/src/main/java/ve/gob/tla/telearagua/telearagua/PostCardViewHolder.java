@@ -7,12 +7,12 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 
-public class ProductCardViewHolder extends RecyclerView.ViewHolder {
+public class PostCardViewHolder extends RecyclerView.ViewHolder {
     public NetworkImageView productImage;
     public TextView productTitle;
 
 
-    public ProductCardViewHolder(@NonNull View itemView) {
+    public PostCardViewHolder(@NonNull View itemView) {
         super(itemView);
         productImage = itemView.findViewById(R.id.product_image);
         productTitle = itemView.findViewById(R.id.titletextView);

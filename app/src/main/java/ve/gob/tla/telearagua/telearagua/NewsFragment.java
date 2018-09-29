@@ -1,21 +1,14 @@
 package ve.gob.tla.telearagua.telearagua;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
@@ -33,7 +26,7 @@ import java.util.List;
 public class NewsFragment extends Fragment {
 
 
-    private ProductCardRecyclerViewAdapter adapter;
+    private PostCardRecyclerViewAdapter adapter;
 
     private ShowCardViewHolderAdapter adapter2;
 
@@ -78,10 +71,10 @@ public class NewsFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view2);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false));
-        if(option == 0){
-            adapter = new ProductCardRecyclerViewAdapter(getContext(), postsList);
+        if (option == 0) {
+            adapter = new PostCardRecyclerViewAdapter(getContext(), postsList);
             recyclerView.setAdapter(adapter);
-        }else{
+        } else {
             adapter2 = new ShowCardViewHolderAdapter(getContext(), postsList);
             recyclerView.setAdapter(adapter2);
         }
@@ -99,13 +92,11 @@ public class NewsFragment extends Fragment {
         postsList.clear();
         String url = "";
 
-        if(option == 0){
+        if (option == 0) {
             url = "http://tla.gob.ve/api/get/imagenes/?o=tiempo&s=desc";
-        }else{
+        } else {
             url = "http://tla.gob.ve/api/get/programacion/?o=tiempo&s=desc";
         }
-
-
 
 
         CacheRequest req = new CacheRequest(0, url, new Response.Listener<NetworkResponse>() {
@@ -115,12 +106,12 @@ public class NewsFragment extends Fragment {
                     String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
                     jsonString = new FormatString().format(jsonString);
                     JSONObject jsonObject = new JSONObject(jsonString);
-                    int  size = 0;
-                    if(option == 0){
+                    int size = 0;
+                    if (option == 0) {
                         size = 20;
-                    }else{
+                    } else {
                         size = jsonObject.length();
-                        size = size -1;
+                        size = size - 1;
                     }
                     Log.d(TAG, jsonString);
                     if (jsonObject.length() > 0) {
@@ -142,12 +133,11 @@ public class NewsFragment extends Fragment {
                             }
 
                         }
-                        if(option ==0){
+                        if (option == 0) {
                             adapter.notifyDataSetChanged();
-                        }else{
+                        } else {
                             adapter2.notifyDataSetChanged();
                         }
-
 
 
                     }
@@ -161,7 +151,6 @@ public class NewsFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 

@@ -43,8 +43,6 @@ public class TabsActivity extends AppCompatActivity {
     public static List<Post> postsList;
 
 
-
-
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -54,8 +52,6 @@ public class TabsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabs);
-
-
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -79,49 +75,8 @@ public class TabsActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
 
-
-
-
-
     }
 
-
-
-
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_tabs, container, false);
-
-            return rootView;
-        }
-    }
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -135,9 +90,9 @@ public class TabsActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-           NewsFragment view = new NewsFragment();
-           view.setOption(position);
-           return view;
+            NewsFragment view = new NewsFragment();
+            view.setOption(position);
+            return view;
         }
 
         @Override

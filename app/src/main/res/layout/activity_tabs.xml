@@ -19,8 +19,7 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_weight="1"
             android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:title="@string/app_name">
+            app:layout_scrollFlags="scroll|enterAlways">
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -36,7 +35,9 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:tabIndicatorHeight="5dp"
+            app:tabTextColor="@color/primaryTextColor">
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tabItem"

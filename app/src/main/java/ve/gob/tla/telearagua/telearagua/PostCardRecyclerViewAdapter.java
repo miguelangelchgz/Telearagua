@@ -12,14 +12,14 @@ import java.util.List;
 
 import ve.gob.tla.telearagua.telearagua.network.ImageRequester;
 
-public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<ProductCardViewHolder> {
+public class PostCardRecyclerViewAdapter extends RecyclerView.Adapter<PostCardViewHolder> {
 
     private Context mContext;
     private List<Post> productList;
     private ImageRequester imageRequester;
-    private  Intent  intent;
+    private Intent intent;
 
-    ProductCardRecyclerViewAdapter(Context c,List<Post> productList) {
+    PostCardRecyclerViewAdapter(Context c, List<Post> productList) {
         mContext = c;
         this.productList = productList;
         imageRequester = ImageRequester.getInstance();
@@ -28,22 +28,23 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
     @NonNull
     @Override
-    public ProductCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PostCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardd, parent, false);
-        return new ProductCardViewHolder(layoutView);
+        return new PostCardViewHolder(layoutView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PostCardViewHolder holder, int position) {
         if (productList != null && position < productList.size()) {
             final Post product = productList.get(position);
             holder.productTitle.setText(product.title);
             imageRequester.setImageFromUrl(holder.productImage, product.image_link);
-            setOnClick(holder,product);
+            setOnClick(holder, product);
 
         }
     }
-    private void setOnClick(ProductCardViewHolder holder,final Post post){
+
+    private void setOnClick(PostCardViewHolder holder, final Post post) {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
