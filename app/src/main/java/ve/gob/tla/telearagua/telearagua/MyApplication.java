@@ -25,11 +25,6 @@ public class MyApplication extends Application {
         return mInstance;
     }
 
-    //----------------------------------------------------------------------------------------------
-
-
-
-    //----------------------------------------------------------------------------------------------
 
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {

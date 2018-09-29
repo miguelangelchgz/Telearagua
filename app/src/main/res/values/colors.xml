@@ -8,9 +8,17 @@
     <color name="secondaryDarkColor">#9a0007</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
-    <color name="jagger">#73000000</color>
+    <color name="jagger">#33000000</color>
     <color name="blackcurrant">#2A282B</color>
     <color name="snow">#FAFAFA</color>
     <color name="catskill">#DFE3DB</color>
     <color name="grey_suit">#9896A3</color>
+    <color name="background_material_dark">#ffffff</color>
+    <color name="colorPrimary">#e53835</color>
+    <color name="colorPrimaryDark">#ab000d</color>
+    <color name="colorAccent">#ffab00</color>
+    <color name="toolbarIconColor">#FFFFFF</color>
+    <color name="loginPageBackgroundColor">#FFFFFF</color>
+    <color name="productGridBackgroundColor">#FFFFFF</color>
+    <color name="background">#f5f5f5</color>
 </resources>

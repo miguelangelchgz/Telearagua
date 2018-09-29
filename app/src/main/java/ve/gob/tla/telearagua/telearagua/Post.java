@@ -1,5 +1,6 @@
 package ve.gob.tla.telearagua.telearagua;
 
+
 public class Post {
     public Post(String title,String description,String image_link,  String date, String category) {
         this.title = title;
@@ -10,5 +11,6 @@ public class Post {
     }
 
     public String description, title, image_link,date,category;
+
 
 }
