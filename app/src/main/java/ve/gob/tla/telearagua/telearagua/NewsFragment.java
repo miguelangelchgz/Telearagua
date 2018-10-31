@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -105,20 +106,20 @@ public class NewsFragment extends Fragment {
                 try {
                     String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
                     jsonString = new FormatString().format(jsonString);
-                    JSONObject jsonObject = new JSONObject(jsonString);
+                    JSONArray array = new JSONObject(jsonString).getJSONArray("data");
                     int size = 0;
                     if (option == 0) {
                         size = 20;
                     } else {
-                        size = jsonObject.length();
+                        size = array.length();
                         size = size - 1;
                     }
                     Log.d(TAG, jsonString);
-                    if (jsonObject.length() > 0) {
+                    if (array.length() > 0) {
                         for (int i = size; i >= 0; i--) {
 
                             try {
-                                JSONObject post = jsonObject.getJSONArray("data").getJSONObject(i);
+                                JSONObject post = array.getJSONObject(i);
                                 String titulo = post.getString("titulo");
                                 String img = post.getString("img");
                                 String contenido = post.getString("contenido");
